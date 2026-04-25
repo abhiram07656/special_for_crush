@@ -361,14 +361,7 @@
     }
     .popup-content p { margin-bottom: 14px; }
 
-    /* confetti removed */
-
-    /* ── EDIT MODE indicator ── */
-    [contenteditable="true"] {
-      outline: 2px dashed rgba(232,84,122,0.4);
-      border-radius: 4px; cursor: text;
-    }
-
+  
     /* ── RESPONSIVE ── */
     @media (max-width: 480px) {
       .reasons-grid { grid-template-columns: 1fr 1fr; }
@@ -507,14 +500,7 @@
   </section>
 
   <footer>Made with 💖 just for you — always and forever ∞</footer>
-</div><!-- /#main-site -->
-
-<!-- ── EDIT TOGGLE BUTTON
-     FIX: This button existed in CSS/JS but was never rendered in the HTML. Added it. -->
-<button class="edit-toggle" id="edit-toggle-btn" onclick="toggleEdit()" style="display:none;">
-  ✏️ Edit Mode
-</button>
-
+</div>
 <!-- ── LETTER POPUP ── -->
 <div class="popup-overlay" id="popup" onclick="closePopupOutside(event)">
   <div class="popup-box">
@@ -789,38 +775,7 @@
     const x   = e.clientX - bar.getBoundingClientRect().left;
     audio.currentTime = (x / bar.offsetWidth) * audio.duration;
   }
-
-  /* ══════════════════════
-     EDIT MODE
-     FIX: toggleEdit was defined but the button was never in the HTML.
-          Now the button is rendered (edit-toggle-btn) and shown after landing.
-          contenteditable is toggled on/off and the button label updates too.
-  ══════════════════════ */
-  let editMode = false;
-
-  // IDs of single editable elements
-  const editableIds = ['hero-sub', 'letter-title', 'letter-body', 'letter-sign',
-                       'song-title', 'song-artist', 'popup-content'];
-
-  function toggleEdit() {
-    editMode = !editMode;
-    const val = editMode ? 'true' : 'false';
-
-    // Toggle individual elements
-    editableIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.contentEditable = val;
-    });
-
-    // Toggle reason card text
-    document.querySelectorAll('.reason-title, .reason-text').forEach(el => {
-      el.contentEditable = val;
-    });
-
-    // Update button label
-    document.getElementById('edit-toggle-btn').textContent =
-      editMode ? '✅ Done Editing' : '✏️ Edit Mode';
-  }
+  
 </script>
 </body>
 </html>
