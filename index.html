@@ -6,7 +6,6 @@
   <title>Something Special For You 💖</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    /* ── RESET & VARIABLES ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -19,16 +18,13 @@
 
     html, body { width: 100%; overflow-x: hidden; }
 
-    /* ─── HEARTS CANVAS ─── */
     #heart-canvas {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none; z-index: 0;
     }
 
-    /* ══════════════════════
-       LANDING SCREEN
-    ══════════════════════ */
+    /* ══ LANDING ══ */
     #landing {
       position: fixed; inset: 0; z-index: 100;
       display: flex; flex-direction: column;
@@ -36,17 +32,12 @@
       background: linear-gradient(135deg, #f9a8c3 0%, #f06292 40%, #e91e8c 80%, #c2185b 100%);
       transition: opacity 0.9s ease, transform 0.9s ease;
     }
-    #landing.hide {
-      opacity: 0;
-      transform: scale(1.06);
-      pointer-events: none;
-    }
+    #landing.hide { opacity: 0; transform: scale(1.06); pointer-events: none; }
 
     .landing-glow {
       position: absolute; width: 500px; height: 500px;
       background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: pulse-glow 3s ease-in-out infinite;
+      border-radius: 50%; animation: pulse-glow 3s ease-in-out infinite;
     }
     @keyframes pulse-glow {
       0%, 100% { transform: scale(1); opacity: 0.6; }
@@ -58,16 +49,14 @@
       font-size: clamp(2rem, 6vw, 3.8rem);
       color: #fff; text-align: center;
       text-shadow: 0 2px 20px rgba(0,0,0,0.2);
-      z-index: 1;
-      animation: fadeUp 1s ease both;
+      z-index: 1; animation: fadeUp 1s ease both;
     }
     .landing-sub {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1rem, 3vw, 1.5rem);
       color: rgba(255,255,255,0.88);
       margin-top: 10px; z-index: 1;
-      animation: fadeUp 1s 0.3s ease both;
-      font-style: italic;
+      animation: fadeUp 1s 0.3s ease both; font-style: italic;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
@@ -88,9 +77,7 @@
     .begin-btn:hover  { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 40px rgba(0,0,0,0.25); }
     .begin-btn:active { transform: scale(0.97); }
 
-    /* ══════════════════════
-       MAIN SITE
-    ══════════════════════ */
+    /* ══ MAIN SITE ══ */
     #main-site {
       display: none; opacity: 0;
       transition: opacity 0.8s ease;
@@ -108,14 +95,12 @@
       backdrop-filter: blur(12px);
       padding: 14px 28px;
       display: flex; align-items: center; justify-content: center;
-      gap: 28px;
-      border-bottom: 1px solid rgba(232,84,122,0.15);
+      gap: 28px; border-bottom: 1px solid rgba(232,84,122,0.15);
     }
     nav a {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem; letter-spacing: 0.04em;
-      color: var(--deep); text-decoration: none;
-      transition: color 0.2s;
+      color: var(--deep); text-decoration: none; transition: color 0.2s;
     }
     nav a:hover { color: var(--rose); }
 
@@ -126,9 +111,7 @@
     }
     .hero-emoji {
       font-size: clamp(4rem, 12vw, 7rem);
-      display: block;
-      animation: heartbeat 1.4s ease infinite;
-      margin-bottom: 20px;
+      display: block; animation: heartbeat 1.4s ease infinite; margin-bottom: 20px;
     }
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
@@ -152,21 +135,18 @@
 
     /* ── LETTER ── */
     .letter-section {
-      max-width: 760px; margin: 0 auto;
-      padding: 0 20px 60px;
+      max-width: 760px; margin: 0 auto; padding: 0 20px 60px;
     }
     .section-label {
       font-family: 'Dancing Script', cursive;
       font-size: clamp(1.6rem, 4vw, 2.2rem);
-      color: var(--rose); text-align: center;
-      margin-bottom: 24px;
+      color: var(--rose); text-align: center; margin-bottom: 24px;
     }
     .letter-card {
       background: white; border-radius: 20px;
       padding: clamp(28px, 5vw, 50px);
       box-shadow: 0 12px 50px rgba(232,84,122,0.18);
-      position: relative;
-      border: 1px solid rgba(232,84,122,0.12);
+      position: relative; border: 1px solid rgba(232,84,122,0.12);
     }
     .letter-card::before {
       content: '❝';
@@ -187,26 +167,18 @@
     .letter-sign {
       text-align: right;
       font-family: 'Dancing Script', cursive;
-      font-size: 1.4rem; color: var(--rose);
-      margin-top: 20px;
+      font-size: 1.4rem; color: var(--rose); margin-top: 20px;
     }
-
-    /* FIX: "Read Full Letter" button sits below sign, inside the card */
-    .letter-action {
-      text-align: center;
-      margin-top: 24px;
-    }
+    .letter-action { text-align: center; margin-top: 24px; }
 
     /* ── REASONS ── */
     .reasons-section {
-      padding: 0 20px 70px;
-      max-width: 900px; margin: 0 auto;
+      padding: 0 20px 70px; max-width: 900px; margin: 0 auto;
     }
     .reasons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 10px;
+      gap: 20px; margin-top: 10px;
     }
     .reason-card {
       background: white; border-radius: 18px;
@@ -215,10 +187,7 @@
       border: 1px solid rgba(232,84,122,0.1);
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    .reason-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(232,84,122,0.22);
-    }
+    .reason-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(232,84,122,0.22); }
     .reason-icon { font-size: 2.4rem; display: block; margin-bottom: 12px; }
     .reason-title {
       font-family: 'Playfair Display', serif;
@@ -229,7 +198,7 @@
       font-size: 1rem; color: #7a4055; line-height: 1.6;
     }
 
-    /* ── MUSIC PLAYER ── */
+    /* ── MUSIC ── */
     .music-section {
       max-width: 500px; margin: 0 auto;
       padding: 0 20px 70px; text-align: center;
@@ -238,12 +207,10 @@
       background: white; border-radius: 24px; padding: 32px;
       box-shadow: 0 12px 50px rgba(232,84,122,0.18);
     }
-    /* FIX: spin on emoji causes blurry rendering; use a wrapper span */
     .music-note-wrap {
       display: inline-block;
       animation: spin 4s linear infinite;
-      font-size: 3rem;
-      margin-bottom: 16px;
+      font-size: 3rem; margin-bottom: 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .music-title {
@@ -254,15 +221,11 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.95rem; color: #b55070; font-style: italic; margin-bottom: 24px;
     }
-    .music-controls {
-      display: flex; gap: 14px;
-      justify-content: center; align-items: center;
-    }
+    .music-controls { display: flex; gap: 14px; justify-content: center; align-items: center; }
     .ctrl-btn {
       width: 48px; height: 48px; border-radius: 50%;
       border: none; cursor: pointer;
-      background: var(--light); color: var(--rose);
-      font-size: 1.2rem;
+      background: var(--light); color: var(--rose); font-size: 1.2rem;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s, transform 0.2s;
     }
@@ -274,27 +237,21 @@
     }
     .ctrl-btn.play-btn:hover { background: var(--deep); }
     .progress-bar {
-      width: 100%; height: 4px;
-      background: #fce4ec; border-radius: 4px;
-      margin: 20px 0 6px; position: relative; cursor: pointer;
+      width: 100%; height: 4px; background: #fce4ec;
+      border-radius: 4px; margin: 20px 0 6px; cursor: pointer;
     }
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--rose), var(--deep));
-      border-radius: 4px; width: 0%;
-      transition: width 0.3s;
+      border-radius: 4px; width: 0%; transition: width 0.3s;
     }
     .time-labels {
       display: flex; justify-content: space-between;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem; color: #b55070;
-      margin-bottom: 20px;
+      font-size: 0.85rem; color: #b55070; margin-bottom: 20px;
     }
-
-    /* ── SHARED BUTTON STYLE ── */
     .set-btn {
-      padding: 10px 26px;
-      background: var(--rose); color: white;
+      padding: 10px 26px; background: var(--rose); color: white;
       border: none; border-radius: 50px; cursor: pointer;
       font-family: 'Dancing Script', cursive; font-size: 1rem;
       transition: background 0.2s, transform 0.2s;
@@ -302,22 +259,9 @@
     .set-btn:hover  { background: var(--deep); transform: translateY(-2px); }
     .set-btn:active { transform: scale(0.97); }
 
-    /* ── EDIT TOGGLE (fixed bottom-right) ── */
-    .edit-toggle {
-      position: fixed; bottom: 24px; right: 24px; z-index: 90;
-      padding: 12px 22px;
-      background: var(--deep); color: white;
-      border: none; border-radius: 50px; cursor: pointer;
-      font-family: 'Dancing Script', cursive; font-size: 1rem;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-      transition: background 0.2s;
-    }
-    .edit-toggle:hover { background: var(--rose); }
-
     /* ── FOOTER ── */
     footer {
-      text-align: center;
-      padding: 40px 20px;
+      text-align: center; padding: 40px 20px;
       font-family: 'Dancing Script', cursive;
       font-size: 1.3rem; color: var(--rose);
       border-top: 1px solid rgba(232,84,122,0.1);
@@ -329,19 +273,16 @@
       background: rgba(100,20,40,0.5);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.4s;
-      backdrop-filter: blur(4px);
+      transition: opacity 0.4s; backdrop-filter: blur(4px);
     }
     .popup-overlay.open { opacity: 1; pointer-events: all; }
     .popup-box {
       background: white; border-radius: 24px;
       padding: clamp(28px, 5vw, 50px);
-      max-width: 520px; width: 90%;
-      max-height: 80vh; overflow-y: auto;
+      max-width: 520px; width: 90%; max-height: 80vh; overflow-y: auto;
       box-shadow: 0 24px 80px rgba(0,0,0,0.25);
       position: relative;
-      transform: scale(0.85) translateY(30px);
-      transition: transform 0.4s;
+      transform: scale(0.85) translateY(30px); transition: transform 0.4s;
     }
     .popup-overlay.open .popup-box { transform: scale(1) translateY(0); }
     .popup-close {
@@ -361,8 +302,6 @@
     }
     .popup-content p { margin-bottom: 14px; }
 
-  
-    /* ── RESPONSIVE ── */
     @media (max-width: 480px) {
       .reasons-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -370,10 +309,10 @@
 </head>
 <body>
 
-<!-- Floating hearts canvas (always on) -->
+<!-- Hearts float upward continuously in background -->
 <canvas id="heart-canvas"></canvas>
 
-<!-- Sakura petals canvas (shown only on main site) -->
+<!-- Sakura petals: one-time spray downward on site open -->
 <canvas id="sakura-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;display:none;"></canvas>
 
 <!-- ─────────── LANDING ─────────── -->
@@ -387,98 +326,76 @@
 <!-- ─────────── MAIN SITE ─────────── -->
 <div id="main-site">
 
-  <!-- NAV -->
   <nav>
     <a href="#letter">💌 Letter</a>
     <a href="#reasons">💖 Reasons</a>
     <a href="#music">🎵 Music</a>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
+  <section class="hero">
     <span class="hero-emoji">💝</span>
     <h1>You Are <span>My Everything</span></h1>
-    <p id="hero-sub">Every moment with you feels like a dream I never want to wake from…</p>
+    <p>Every moment with you feels like a dream I never want to wake from…</p>
   </section>
 
-  <!-- LETTER
-       FIX: letter-sign and Read Full Letter button are now INSIDE .letter-card,
-            not leaking into the reasons-grid. -->
   <section class="letter-section" id="letter">
     <div class="section-label">✉️ A Letter From My Heart</div>
     <div class="letter-card">
-      <h3 class="letter-title" id="letter-title">My Dearest Love,</h3>
-      <div class="letter-body" id="letter-body">
+      <h3 class="letter-title">My Dearest Love,</h3>
+      <div class="letter-body">
         <p>I don't know how to put this perfectly, but you're truly special to me. You're not just beautiful—you're like a calm, warm feeling that makes everything around you better. The way you smile and the way you carry yourself stays in my mind more than I can explain.</p>
         <p>Sometimes I find myself thinking about you for no reason at all. It's the little things about you that make you unforgettable, like a soft melody that never really fades away.</p>
         <p>I don't know what the future holds, but I just wanted you to know that you mean something to me—something real and rare, and I genuinely appreciate you.</p>
       </div>
-      <div class="letter-sign" id="letter-sign">Forever yours, ♡</div>
-      <!-- FIX: button was outside .letter-card; moved inside and wrapped properly -->
+      <div class="letter-sign">Forever yours, ♡</div>
       <div class="letter-action">
         <button class="set-btn" onclick="openPopup()">Read Full Letter 💌</button>
       </div>
     </div>
   </section>
 
-  <!-- REASONS
-       FIX: Grid no longer contains stray letter elements.
-            All 6 cards are proper siblings inside .reasons-grid. -->
   <section class="reasons-section" id="reasons">
     <div class="section-label">💫 Reasons I Love You</div>
-    <div class="reasons-grid" id="reasons-grid">
-
+    <div class="reasons-grid">
       <div class="reason-card">
         <span class="reason-icon">😊</span>
         <div class="reason-title">Your Smile</div>
         <div class="reason-text">Your smile lights up every room and makes my heart skip a beat every single time.</div>
       </div>
-
       <div class="reason-card">
         <span class="reason-icon">🌟</span>
         <div class="reason-title">Your Soul</div>
         <div class="reason-text">You have the most beautiful soul — kind, genuine, and endlessly wonderful.</div>
       </div>
-
       <div class="reason-card">
         <span class="reason-icon">🤗</span>
         <div class="reason-title">Your Warmth</div>
         <div class="reason-text">Being around you feels like being wrapped in the warmest, safest embrace.</div>
       </div>
-
       <div class="reason-card">
         <span class="reason-icon">😂</span>
         <div class="reason-title">Your Laugh</div>
         <div class="reason-text">Your laugh is the most beautiful sound in the entire world to me.</div>
       </div>
-
       <div class="reason-card">
         <span class="reason-icon">💪</span>
         <div class="reason-title">Your Strength</div>
         <div class="reason-text">The way you face every challenge with grace inspires me every day.</div>
       </div>
-
       <div class="reason-card">
         <span class="reason-icon">✨</span>
         <div class="reason-title">Just You</div>
         <div class="reason-text">Everything about you — even the little things — makes me fall for you more each day.</div>
       </div>
-
     </div>
   </section>
 
-  <!-- MUSIC
-       FIX: music-note emoji wrapped in .music-note-wrap so spin renders cleanly.
-            FIX: Removed orphaned #cd-message div that was outside its section.
-            FIX: Removed dead commented-out togglePlay duplicate. -->
   <section class="music-section" id="music">
     <div class="section-label">🎵 Song</div>
     <div class="music-player">
-
       <span class="music-note-wrap">🎵</span>
       <div class="music-title" id="song-title">Special Song For You</div>
-      <div class="music-sub"  id="song-artist">— For You, With Love —</div>
-
+      <div class="music-sub" id="song-artist">— For You, With Love —</div>
       <div class="progress-bar" id="progress-bar" onclick="seekAudio(event)">
         <div class="progress-fill" id="progress-fill"></div>
       </div>
@@ -486,27 +403,24 @@
         <span id="cur-time">0:00</span>
         <span id="dur-time">0:00</span>
       </div>
-
       <div class="music-controls">
         <button class="ctrl-btn" onclick="skipAudio(-10)" title="Rewind 10s">⏮</button>
         <button class="ctrl-btn play-btn" id="play-btn" onclick="togglePlay()">▶</button>
-        <button class="ctrl-btn" onclick="skipAudio(10)"  title="Forward 10s">⏭</button>
+        <button class="ctrl-btn" onclick="skipAudio(10)" title="Forward 10s">⏭</button>
       </div>
-
-      <!-- Hidden audio element; src points to music/crush.mp3 relative to this file -->
       <audio id="bg-audio" src="music/crush.mp3" preload="metadata"></audio>
-
     </div>
   </section>
 
   <footer>Made with 💖 just for you — always and forever ∞</footer>
 </div>
-<!-- ── LETTER POPUP ── -->
+
+<!-- POPUP -->
 <div class="popup-overlay" id="popup" onclick="closePopupOutside(event)">
   <div class="popup-box">
     <button class="popup-close" onclick="closePopup()" aria-label="Close">✕</button>
     <div class="popup-title">💌 My Dearest Love</div>
-    <div class="popup-content" id="popup-content">
+    <div class="popup-content">
       <p>I don't know how to say this perfectly, but you're really special to me...</p>
       <p>You're not just beautiful — you make everything feel lighter and better.</p>
       <p>The way you smile stays in my mind longer than it should.</p>
@@ -521,9 +435,7 @@
 </div>
 
 <script>
-  /* ══════════════════════
-     HEARTS CANVAS
-  ══════════════════════ */
+  /* ══ HEARTS CANVAS — float upward continuously ══ */
   const canvas = document.getElementById('heart-canvas');
   const ctx    = canvas.getContext('2d');
   let hearts   = [];
@@ -535,7 +447,6 @@
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Draw a heart path centered at (x, y) with given size
   function heartPath(x, y, size) {
     ctx.save();
     ctx.translate(x, y);
@@ -549,20 +460,15 @@
 
   function spawnHeart() {
     hearts.push({
-      x:       Math.random() * canvas.width,
-      y:       canvas.height + 20,
-      size:    Math.random() * 10 + 6,
-      speed:   Math.random() * 1.2 + 0.5,
-      opacity: Math.random() * 0.5 + 0.3,
-      sway:    Math.random() * 2 - 1,
-      angle:   0
+      x: Math.random() * canvas.width, y: canvas.height + 20,
+      size: Math.random() * 10 + 6, speed: Math.random() * 1.2 + 0.5,
+      opacity: Math.random() * 0.5 + 0.3, sway: Math.random() * 2 - 1, angle: 0
     });
   }
   setInterval(spawnHeart, 350);
 
   function animateHearts() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Remove hearts that have floated off the top
     hearts = hearts.filter(h => h.y > -30);
     hearts.forEach(h => {
       h.y -= h.speed;
@@ -570,7 +476,6 @@
       h.angle += 0.04;
       ctx.save();
       ctx.globalAlpha = h.opacity;
-      // Slight hue variation for a richer look
       ctx.fillStyle = `hsl(${340 + Math.random() * 20}, 80%, 65%)`;
       heartPath(h.x, h.y, h.size);
       ctx.fill();
@@ -580,26 +485,16 @@
   }
   animateHearts();
 
-  /* ══════════════════════
-     ENTER SITE
-  ══════════════════════ */
+  /* ══ ENTER SITE ══ */
   function enterSite() {
     document.getElementById('landing').classList.add('hide');
     const main = document.getElementById('main-site');
     main.classList.add('show');
-    // Small delay lets the display:block apply before fading in
     setTimeout(() => main.classList.add('visible'), 50);
-    // Show the edit toggle now that the main site is visible
-    document.getElementById('edit-toggle-btn').style.display = 'block';
-    // Start sakura petals on the main site
-    startSakura();
+    startSakura(); // one-time sakura spray
   }
 
-  /* ══════════════════════
-     SAKURA PETALS
-     Drawn on a separate canvas, only active on the main site.
-     Each petal is an oval rotated and swaying as it falls.
-  ══════════════════════ */
+  /* ══ SAKURA PETALS — one-time spray, fall all the way through ══ */
   const sc  = document.getElementById('sakura-canvas');
   const sct = sc.getContext('2d');
   let petals = [];
@@ -610,29 +505,25 @@
   }
   window.addEventListener('resize', resizeSakura);
 
-  // Petal colours: soft pinks and whites
   const petalColors = [
-    'rgba(255,183,197,',   // light pink
-    'rgba(255,209,220,',   // blush
-    'rgba(255,160,180,',   // rose pink
-    'rgba(255,235,238,',   // near-white pink
-    'rgba(252,200,215,',   // sakura pink
+    'rgba(255,183,197,', 'rgba(255,209,220,', 'rgba(255,160,180,',
+    'rgba(255,235,238,', 'rgba(252,200,215,',
   ];
 
   function spawnPetal() {
     petals.push({
-      x:       Math.random() * sc.width,
-      y:       -10,
-      size:    Math.random() * 8 + 5,        // petal radius 5–13px
-      speedY:  Math.random() * 1.2 + 0.6,    // fall speed
-      speedX:  (Math.random() - 0.5) * 0.6,  // gentle horizontal drift
-      angle:   Math.random() * Math.PI * 2,  // rotation
-      spin:    (Math.random() - 0.5) * 0.04, // rotation speed
-      sway:    Math.random() * 0.8 + 0.3,    // horizontal sway amplitude
+      x: Math.random() * sc.width,
+      y: -10,
+      size:      Math.random() * 8 + 5,
+      speedY:    Math.random() * 1.2 + 0.6,
+      speedX:    (Math.random() - 0.5) * 0.6,
+      angle:     Math.random() * Math.PI * 2,
+      spin:      (Math.random() - 0.5) * 0.04,
+      sway:      Math.random() * 0.8 + 0.3,
       swayAngle: Math.random() * Math.PI * 2,
       swaySpeed: Math.random() * 0.02 + 0.01,
-      color:   petalColors[Math.floor(Math.random() * petalColors.length)],
-      opacity: Math.random() * 0.5 + 0.45,
+      color:     petalColors[Math.floor(Math.random() * petalColors.length)],
+      opacity:   Math.random() * 0.5 + 0.45,
     });
   }
 
@@ -642,11 +533,8 @@
     sct.rotate(p.angle);
     sct.globalAlpha = p.opacity;
 
-    // Draw a simple oval petal shape
     sct.beginPath();
     sct.ellipse(0, 0, p.size, p.size * 0.55, 0, 0, Math.PI * 2);
-
-    // Gradient fill for soft look
     const grad = sct.createRadialGradient(0, 0, 0, 0, 0, p.size);
     grad.addColorStop(0,   p.color + '1)');
     grad.addColorStop(0.5, p.color + '0.85)');
@@ -654,7 +542,6 @@
     sct.fillStyle = grad;
     sct.fill();
 
-    // Subtle vein line for realism
     sct.beginPath();
     sct.moveTo(-p.size * 0.6, 0);
     sct.lineTo( p.size * 0.6, 0);
@@ -669,7 +556,6 @@
     sct.clearRect(0, 0, sc.width, sc.height);
 
     petals.forEach(p => {
-      // Move petal downward with gentle sway
       p.swayAngle += p.swaySpeed;
       p.x += p.speedX + Math.sin(p.swayAngle) * p.sway;
       p.y += p.speedY;
@@ -677,15 +563,13 @@
       drawPetal(p);
     });
 
-    // Remove petals only after they fully exit the BOTTOM of screen
+    // Remove only after fully passing bottom edge
     petals = petals.filter(p => p.y < sc.height + 30);
 
-    // Keep looping until every petal has fallen off the bottom
     if (petals.length > 0) {
       requestAnimationFrame(animateSakura);
     } else {
-      // All petals gone — hide canvas and stop completely
-      sc.style.display = 'none';
+      sc.style.display = 'none'; // all gone — stop everything
     }
   }
 
@@ -693,7 +577,7 @@
     resizeSakura();
     sc.style.display = 'block';
 
-    // Spray 40 petals rapidly (every 50ms = ~2 second burst)
+    // Spray 40 petals rapidly then stop spawning forever
     let spawned = 0;
     const spawnInterval = setInterval(() => {
       spawnPetal();
@@ -701,31 +585,23 @@
       if (spawned >= 40) clearInterval(spawnInterval);
     }, 50);
 
-    // Start animation loop after first petal is ready
     setTimeout(animateSakura, 60);
   }
 
-  /* ══════════════════════
-     POPUP
-  ══════════════════════ */
+  /* ══ POPUP ══ */
   function openPopup()  { document.getElementById('popup').classList.add('open'); }
   function closePopup() { document.getElementById('popup').classList.remove('open'); }
   function closePopupOutside(e) {
     if (e.target === document.getElementById('popup')) closePopup();
   }
 
-  /* ══════════════════════
-     AUDIO PLAYER
-     FIX: Removed duplicate commented-out togglePlay.
-          Added graceful handling when audio hasn't loaded yet.
-  ══════════════════════ */
+  /* ══ AUDIO PLAYER ══ */
   const audio     = document.getElementById('bg-audio');
   let   isPlaying = false;
 
   function togglePlay() {
-    // Guard: if no valid audio source is loaded yet
     if (!audio.src || audio.error) {
-      alert('No audio found. Please place a file at music/crush.mp3 🎵');
+      alert('No audio found. Place your song at music/crush.mp3 🎵');
       return;
     }
     if (isPlaying) {
@@ -733,49 +609,37 @@
       isPlaying = false;
       document.getElementById('play-btn').textContent = '▶';
     } else {
-      audio.play().catch(() => {
-        alert('Audio could not be played. Check the file path: music/crush.mp3');
-      });
+      audio.play().catch(() => alert('Could not play audio. Check music/crush.mp3'));
       isPlaying = true;
       document.getElementById('play-btn').textContent = '⏸';
     }
   }
 
-  function skipAudio(seconds) {
-    audio.currentTime = Math.max(0, audio.currentTime + seconds);
-  }
+  function skipAudio(s) { audio.currentTime = Math.max(0, audio.currentTime + s); }
 
-  // Update progress bar and time labels as song plays
   audio.addEventListener('timeupdate', () => {
     if (!audio.duration) return;
-    const pct = (audio.currentTime / audio.duration) * 100;
-    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-fill').style.width = (audio.currentTime / audio.duration * 100) + '%';
     document.getElementById('cur-time').textContent = fmtTime(audio.currentTime);
     document.getElementById('dur-time').textContent = fmtTime(audio.duration);
   });
 
-  // Reset UI when song ends
   audio.addEventListener('ended', () => {
     isPlaying = false;
     document.getElementById('play-btn').textContent = '▶';
     document.getElementById('progress-fill').style.width = '0%';
   });
 
-  // Format seconds → "m:ss"
   function fmtTime(s) {
-    const m   = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
     return `${m}:${sec < 10 ? '0' : ''}${sec}`;
   }
 
-  // Click on progress bar to seek
   function seekAudio(e) {
     if (!audio.duration) return;
     const bar = document.getElementById('progress-bar');
-    const x   = e.clientX - bar.getBoundingClientRect().left;
-    audio.currentTime = (x / bar.offsetWidth) * audio.duration;
+    audio.currentTime = ((e.clientX - bar.getBoundingClientRect().left) / bar.offsetWidth) * audio.duration;
   }
-  
 </script>
 </body>
 </html>
