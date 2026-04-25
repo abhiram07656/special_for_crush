@@ -361,19 +361,13 @@
     }
     .popup-content p { margin-bottom: 14px; }
 
-    /* ── CONFETTI ── */
-    .confetti-piece {
-      position: fixed; width: 10px; height: 10px;
-      top: -10px; border-radius: 2px;
-      opacity: 0; pointer-events: none; z-index: 999;
-      animation: confetti-fall 4s ease-in forwards;
-    }
-    @keyframes confetti-fall {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-    }
+    /* confetti removed */
 
-  
+    /* ── EDIT MODE indicator ── */
+    [contenteditable="true"] {
+      outline: 2px dashed rgba(232,84,122,0.4);
+      border-radius: 4px; cursor: text;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 480px) {
@@ -383,8 +377,11 @@
 </head>
 <body>
 
-<!-- Floating hearts canvas -->
+<!-- Floating hearts canvas (always on) -->
 <canvas id="heart-canvas"></canvas>
+
+<!-- Sakura petals canvas (shown only on main site) -->
+<canvas id="sakura-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;display:none;"></canvas>
 
 <!-- ─────────── LANDING ─────────── -->
 <div id="landing">
@@ -510,7 +507,14 @@
   </section>
 
   <footer>Made with 💖 just for you — always and forever ∞</footer>
-</div>
+</div><!-- /#main-site -->
+
+<!-- ── EDIT TOGGLE BUTTON
+     FIX: This button existed in CSS/JS but was never rendered in the HTML. Added it. -->
+<button class="edit-toggle" id="edit-toggle-btn" onclick="toggleEdit()" style="display:none;">
+  ✏️ Edit Mode
+</button>
+
 <!-- ── LETTER POPUP ── -->
 <div class="popup-overlay" id="popup" onclick="closePopupOutside(event)">
   <div class="popup-box">
@@ -601,27 +605,118 @@
     setTimeout(() => main.classList.add('visible'), 50);
     // Show the edit toggle now that the main site is visible
     document.getElementById('edit-toggle-btn').style.display = 'block';
-    spawnConfetti();
+    // Start sakura petals on the main site
+    startSakura();
   }
 
   /* ══════════════════════
-     CONFETTI
+     SAKURA PETALS
+     Drawn on a separate canvas, only active on the main site.
+     Each petal is an oval rotated and swaying as it falls.
   ══════════════════════ */
-  function spawnConfetti() {
-    const colors = ['#e8547a','#f9a8c3','#c2185b','#ff80ab','#f48fb1','#fff'];
-    for (let i = 0; i < 80; i++) {
-      setTimeout(() => {
-        const el = document.createElement('div');
-        el.className = 'confetti-piece';
-        el.style.left            = Math.random() * 100 + 'vw';
-        el.style.background      = colors[Math.floor(Math.random() * colors.length)];
-        el.style.animationDelay  = Math.random() * 1.5 + 's';
-        el.style.width           = (Math.random() * 10 + 6) + 'px';
-        el.style.height          = (Math.random() * 10 + 6) + 'px';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 5000);
-      }, i * 30);
+  const sc  = document.getElementById('sakura-canvas');
+  const sct = sc.getContext('2d');
+  let petals = [];
+
+  function resizeSakura() {
+    sc.width  = window.innerWidth;
+    sc.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeSakura);
+
+  // Petal colours: soft pinks and whites
+  const petalColors = [
+    'rgba(255,183,197,',   // light pink
+    'rgba(255,209,220,',   // blush
+    'rgba(255,160,180,',   // rose pink
+    'rgba(255,235,238,',   // near-white pink
+    'rgba(252,200,215,',   // sakura pink
+  ];
+
+  function spawnPetal() {
+    petals.push({
+      x:       Math.random() * sc.width,
+      y:       -10,
+      size:    Math.random() * 8 + 5,        // petal radius 5–13px
+      speedY:  Math.random() * 1.2 + 0.6,    // fall speed
+      speedX:  (Math.random() - 0.5) * 0.6,  // gentle horizontal drift
+      angle:   Math.random() * Math.PI * 2,  // rotation
+      spin:    (Math.random() - 0.5) * 0.04, // rotation speed
+      sway:    Math.random() * 0.8 + 0.3,    // horizontal sway amplitude
+      swayAngle: Math.random() * Math.PI * 2,
+      swaySpeed: Math.random() * 0.02 + 0.01,
+      color:   petalColors[Math.floor(Math.random() * petalColors.length)],
+      opacity: Math.random() * 0.5 + 0.45,
+    });
+  }
+
+  function drawPetal(p) {
+    sct.save();
+    sct.translate(p.x, p.y);
+    sct.rotate(p.angle);
+    sct.globalAlpha = p.opacity;
+
+    // Draw a simple oval petal shape
+    sct.beginPath();
+    sct.ellipse(0, 0, p.size, p.size * 0.55, 0, 0, Math.PI * 2);
+
+    // Gradient fill for soft look
+    const grad = sct.createRadialGradient(0, 0, 0, 0, 0, p.size);
+    grad.addColorStop(0,   p.color + '1)');
+    grad.addColorStop(0.5, p.color + '0.85)');
+    grad.addColorStop(1,   p.color + '0.3)');
+    sct.fillStyle = grad;
+    sct.fill();
+
+    // Subtle vein line for realism
+    sct.beginPath();
+    sct.moveTo(-p.size * 0.6, 0);
+    sct.lineTo( p.size * 0.6, 0);
+    sct.strokeStyle = p.color + '0.25)';
+    sct.lineWidth = 0.5;
+    sct.stroke();
+
+    sct.restore();
+  }
+
+  function animateSakura() {
+    sct.clearRect(0, 0, sc.width, sc.height);
+
+    petals.forEach(p => {
+      // Move petal downward with gentle sway
+      p.swayAngle += p.swaySpeed;
+      p.x += p.speedX + Math.sin(p.swayAngle) * p.sway;
+      p.y += p.speedY;
+      p.angle += p.spin;
+      drawPetal(p);
+    });
+
+    // Remove petals only after they fully exit the BOTTOM of screen
+    petals = petals.filter(p => p.y < sc.height + 30);
+
+    // Keep looping until every petal has fallen off the bottom
+    if (petals.length > 0) {
+      requestAnimationFrame(animateSakura);
+    } else {
+      // All petals gone — hide canvas and stop completely
+      sc.style.display = 'none';
     }
+  }
+
+  function startSakura() {
+    resizeSakura();
+    sc.style.display = 'block';
+
+    // Spray 40 petals rapidly (every 50ms = ~2 second burst)
+    let spawned = 0;
+    const spawnInterval = setInterval(() => {
+      spawnPetal();
+      spawned++;
+      if (spawned >= 40) clearInterval(spawnInterval);
+    }, 50);
+
+    // Start animation loop after first petal is ready
+    setTimeout(animateSakura, 60);
   }
 
   /* ══════════════════════
@@ -695,7 +790,37 @@
     audio.currentTime = (x / bar.offsetWidth) * audio.duration;
   }
 
-  
+  /* ══════════════════════
+     EDIT MODE
+     FIX: toggleEdit was defined but the button was never in the HTML.
+          Now the button is rendered (edit-toggle-btn) and shown after landing.
+          contenteditable is toggled on/off and the button label updates too.
+  ══════════════════════ */
+  let editMode = false;
+
+  // IDs of single editable elements
+  const editableIds = ['hero-sub', 'letter-title', 'letter-body', 'letter-sign',
+                       'song-title', 'song-artist', 'popup-content'];
+
+  function toggleEdit() {
+    editMode = !editMode;
+    const val = editMode ? 'true' : 'false';
+
+    // Toggle individual elements
+    editableIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.contentEditable = val;
+    });
+
+    // Toggle reason card text
+    document.querySelectorAll('.reason-title, .reason-text').forEach(el => {
+      el.contentEditable = val;
+    });
+
+    // Update button label
+    document.getElementById('edit-toggle-btn').textContent =
+      editMode ? '✅ Done Editing' : '✏️ Edit Mode';
+  }
 </script>
 </body>
 </html>
